@@ -1,1 +1,3 @@
 # AI_Petproyects
+
+This repository contains a collection of scripts designed to leverage various AI models through their respective APIs. Whether you’re looking to perform natural language processing, image recognition, or any other AI-powered tasks, these scripts provide a straightforward way to integrate cutting-edge AI capabilities into your projects. Each script is accompanied by clear instructions and examples to help you get started quickly, making it easy to harness the power of AI for your own applications. Feel free to explore, modify, and contribute to improve and expand this collection.
