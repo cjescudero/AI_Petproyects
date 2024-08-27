@@ -1,0 +1,10 @@
+Texto de la prueba
+
+La inteligencia artificial (IA) se ha convertido rápidamente en una de las tecnologías más transformadoras del siglo XXI. Desde coches autónomos hasta asistentes virtuales, la IA está revolucionando la forma en que vivimos, trabajamos e interactuamos con el mundo. Las aplicaciones potenciales de la IA son vastas, abarcando desde la atención médica y la educación hasta las finanzas y el entretenimiento.
+
+Sin embargo, con este avance tecnológico surgen una serie de desafíos éticos. Una de las principales preocupaciones es el potencial sesgo en los algoritmos de IA, lo que puede llevar a resultados injustos o discriminatorios. Es crucial que los desarrolladores e investigadores consideren cuidadosamente estas implicaciones éticas mientras diseñan y despliegan sistemas de IA.
+
+Otro problema significativo es el impacto de la IA en el empleo. Si bien la IA tiene el potencial de automatizar tareas rutinarias y aumentar la eficiencia, también plantea un riesgo de desplazamiento laboral para millones de trabajadores. Los gobiernos, las empresas y las instituciones educativas deben colaborar para garantizar que los trabajadores estén equipados con las habilidades necesarias para prosperar en una economía impulsada por la IA.
+
+A pesar de estos desafíos, los beneficios de la IA son innegables. La IA tiene la capacidad de procesar y analizar grandes cantidades de datos a velocidades sin precedentes, proporcionando información que antes era inimaginable. A medida que continuamos explorando las posibilidades de la IA, es importante encontrar un equilibrio entre la innovación y la responsabilidad.
+
