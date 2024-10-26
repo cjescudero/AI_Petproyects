@@ -1,38 +1,38 @@
-# AI_Petproyects
+# AI_Petprojects
 
-This repository contains a collection of scripts designed to leverage various AI models through their respective APIs. Whether you're looking to perform natural language processing, image recognition, or any other AI-powered tasks, these scripts provide a straightforward way to integrate cutting-edge AI capabilities into your projects. Each script is accompanied by clear instructions and examples to help you get started quickly, making it easy to harness the power of AI for your own applications.
+This repository contains a collection of scripts designed to leverage various AI models through their respective APIs. The current projects include a translator, an image description generator, and a YouTube audio and video transcriber.
 
 ## Repository Structure
 
-The repository is organized into the following folders, each containing scripts related to different aspects or AI models:
+The repository is organized into the following folders:
 
-### 1. Natural Language Processing
-- `sentiment_analysis.py`: Performs sentiment analysis on text using [model/API name].
-- `machine_translation.py`: Translates text between different languages using [model/API name].
+### 1. Translator
+Contains a script for translating text between different languages using the Google Translate API.
 
-### 2. Computer Vision
-- `object_recognition.py`: Identifies objects in images using [model/API name].
-- `facial_detection.py`: Detects and analyzes faces in images using [model/API name].
+### 2. Image Description
+Includes a script for generating descriptions of images using the OpenAI API.
 
-### 3. Text Generation
-- `article_generation.py`: Generates short articles on given topics using [model/API name].
-- `code_completion.py`: Completes code snippets in various programming languages.
+### 3. Transcriptions
+Offers a tool for transcribing audio from local files and YouTube videos using OpenAI's Whisper model.
 
-## How to Use
+## General Requirements
+
+- Python 3.6+
+- API keys for OpenAI and Google Translate (as per project)
+
+## Setup
 
 1. Clone this repository:
    ```
-   git clone https://github.com/your-username/AI_Petproyects.git
+   git clone https://github.com/your-username/AI_Petprojects.git
    ```
-2. Install the necessary dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
-3. Set up your API keys in a `.env` file (see `.env.example` for the format).
-4. Run the desired script:
-   ```
-   python script_name.py
-   ```
+2. Install the necessary dependencies for each project (see individual README files in each folder).
+
+3. Set up your API keys as environment variables as needed.
+
+## How to Use
+
+Each project has its own README with specific usage instructions. Please refer to the documentation in each project folder for details on how to run and use the scripts.
 
 ## Contributing
 
@@ -40,4 +40,4 @@ Contributions are welcome! If you have an idea for a new script or an improvemen
 
 ## License
 
-This project is licensed under the [license name]. See the `LICENSE` file for more details.
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
