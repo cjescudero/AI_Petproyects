@@ -5,6 +5,8 @@ from datetime import datetime
 import yt_dlp
 import re
 import time
+from pydub import AudioSegment
+import math
 
 # Configure the OpenAI client
 api_key = os.environ.get("OPENAI_API_KEY")
@@ -18,22 +20,82 @@ if not api_key:
 client = OpenAI(api_key=api_key)
 
 
-def transcribe_audio(file_path, output_format):
+def detect_language(audio_file):
+    """
+    Detecta el idioma del audio utilizando el modelo Whisper de OpenAI.
+
+    :param audio_file: Archivo de audio a analizar
+    :return: Código de idioma detectado
+    """
+    try:
+        with open(audio_file, "rb") as file:
+            response = client.audio.transcriptions.create(
+                model="whisper-1", file=file, response_format="json"
+            )
+        return response.language
+    except Exception as e:
+        print(f"Error detecting language: {str(e)}")
+        return "es"  # Devuelve español por defecto en caso de error
+
+
+def transcribe_audio(file_path, output_format, language="es"):
     """
     Transcribe an audio file using OpenAI's Whisper model.
+    Divide files larger than 25 MB into smaller segments if necessary.
 
     :param file_path: Path to the audio file
     :param output_format: Desired output format for the transcription
+    :param language: Código de idioma para la transcripción (por defecto "es" para español)
     :return: Transcription result
     """
     try:
-        with open(file_path, "rb") as audio_file:
-            transcription = client.audio.transcriptions.create(
-                model="whisper-1",
-                file=audio_file,
-                response_format=output_format,
-            )
-        return transcription
+        # Detectar el idioma si no se especifica
+        if language == "es":
+            detected_language = detect_language(file_path)
+            print(f"Detected language: {detected_language}")
+            language = detected_language
+
+        # Cargar el archivo de audio
+        audio = AudioSegment.from_file(file_path)
+
+        # Tamaño máximo del segmento en bytes (25 MB)
+        max_segment_size = 25 * 1024 * 1024
+
+        # Duración del segmento en milisegundos
+        segment_duration = math.floor(
+            (max_segment_size / len(audio.raw_data)) * len(audio)
+        )
+
+        transcription = ""
+
+        # Calcular el número total de segmentos
+        total_segments = math.ceil(len(audio) / segment_duration)
+
+        # Dividir el audio en segmentos si es necesario
+        for i, chunk in enumerate(audio[::segment_duration]):
+            print(f"Transcribing segment {i+1} of {total_segments}...")
+            chunk_file = f"temp_chunk_{i}.mp3"
+            chunk.export(chunk_file, format="mp3")
+
+            with open(chunk_file, "rb") as audio_file:
+                segment_transcription = client.audio.transcriptions.create(
+                    model="whisper-1",
+                    file=audio_file,
+                    response_format="text",
+                    language=language,  # Usar el idioma detectado
+                )
+
+            transcription += segment_transcription + " "
+
+            # Eliminar el archivo temporal
+            os.remove(chunk_file)
+
+        # Convertir al formato de salida deseado si es necesario
+        if output_format != "text":
+            # Aquí deberías implementar la lógica para convertir el texto a otros formatos
+            pass
+
+        return transcription.strip()
     except Exception as e:
         return f"Error during transcription: {str(e)}"
 
@@ -134,7 +196,10 @@ def is_youtube_url(url):
 # Ask the user for the local audio file path or YouTube URL
 input_source = input(
     "Please enter the path to the local audio file or the YouTube video URL: "
-)
+).strip()
+
+# Eliminar las comillas si están presentes
+input_source = input_source.strip('"').strip("'")
 
 # Determine if it's a YouTube URL or a local file
 if is_youtube_url(input_source):
@@ -169,11 +234,15 @@ if is_youtube_url(input_source):
         print(f"Error downloading audio from YouTube: {str(e)}")
         sys.exit(1)
 else:
-    file_path = input_source
+    file_path = os.path.expanduser(input_source)
+    print(f"Expanded path: {file_path}")
     if not os.path.exists(file_path):
-        print(
-            f"The file {file_path} does not exist. Please verify the path and try again."
-        )
+        print(f"Error: The file {file_path} does not exist.")
+        print("Please verify the path and try again.")
+        print(f"Current directory: {os.getcwd()}")
+        print("Files in the current directory:")
+        for file in os.listdir():
+            print(f"  - {file}")
         sys.exit(1)
     print("Step 1: Audio file located.")
 
@@ -183,18 +252,19 @@ result = transcribe_audio(file_path, output_format)
 print("Transcription completed.")
 
 # Generate the output file name
-if (
-    input_source.startswith(("http://", "https://", "www."))
-    and "youtube.com" in input_source
-):
+if is_youtube_url(input_source):
     base_name = video_id
 else:
-    base_name = os.path.splitext(os.path.basename(file_path))[0]
-extension = "json" if output_format in ["json", "verbose_json"] else output_format
+    # Para archivos locales, usar la ruta completa del archivo de audio
+    base_name = os.path.splitext(file_path)[0]
+
+# Definir la extensión basada en el formato de salida
+extension = output_format if output_format != "verbose_json" else "json"
+
 output_file_name = f"{base_name}.{extension}"
 
-# Save the transcription to the file
-print("Step 3: Formatting and saving transcription...")
+# Guardar la transcripción en el archivo
+print("Step 3: Formatting and saving the transcription...")
 write_mode = "w" if output_format in ["text", "srt", "vtt"] else "wb"
 
 try:
