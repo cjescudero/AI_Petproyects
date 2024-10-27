@@ -10,6 +10,7 @@ Este proyecto proporciona un web crawler con una API REST para extraer y procesa
 
 ## Estructura del Proyecto
 
+```
 proyecto/
 ├── webcrawler/
 │   ├── __init__.py
@@ -19,6 +20,7 @@ proyecto/
 │   └── main.py
 ├── requirements.txt
 └── README.md
+```
 
 ## Requisitos
 
