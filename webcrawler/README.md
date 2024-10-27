@@ -11,7 +11,7 @@ Este proyecto proporciona un web crawler con una API REST para extraer y procesa
 ## Estructura del Proyecto
 
 ```
-proyecto/
+webcrawler/
 ├── webcrawler/
 │   ├── __init__.py
 │   └── webcrawler.py
