@@ -4,7 +4,7 @@ info:
   description: API para procesar y extraer contenido de páginas web
   version: "1.0.0"
 servers:
-  - url: http://193.144.50.203:8000
+  - url: http://localhost:8000
 paths:
   /crawl:
     post:
