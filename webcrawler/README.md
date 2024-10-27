@@ -1,14 +1,16 @@
+
 # Web Crawler API
-Este proyecto proporciona un web crawler con una API REST para extraer y procesar contenido de páginas web, convirtiéndolo a formato Markdown.
 
-## Características
+This project provides a web crawler script that can be used with a REST API to extract and process content from web pages, converting it into Markdown format.
 
-- 🌐 Crawling de páginas web con profundidad configurable.
-- 🚀 API REST implementada con FastAPI.
-- 📝 Conversión automática a formato Markdown.
-- 📚 Documentación automática accesible a través de Swagger UI.
+## Features
 
-## Estructura del Proyecto
+- 🌐 Web page crawling with configurable depth.
+- 🚀 REST API implemented with FastAPI.
+- 📝 Automatic conversion to Markdown format.
+- 📚 Auto-generated documentation accessible via Swagger UI.
+
+## Project Structure
 
 ```
 webcrawler/
@@ -22,57 +24,57 @@ webcrawler/
 └── README.md
 ```
 
-## Requisitos
+## Requirements
 
-- Python 3.8 o superior.
-- pip (gestor de paquetes de Python).
+- Python 3.8 or higher.
+- pip (Python package manager).
 
-## Instalación
+## Installation
 
-1. Clona el repositorio:
+1. Clone the repository:
    ```bash
-   git clone https://github.com/usuario/webcrawler-api.git
+   git clone https://github.com/user/webcrawler-api.git
    cd webcrawler-api
    ```
 
-2. Crea un entorno virtual (opcional pero recomendado):
+2. Create a virtual environment (optional but recommended):
    ```bash
    python -m venv venv
-   source venv/bin/activate  # En Windows: venv\Scripts\activate
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
-3. Instala las dependencias:
+3. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
-## Uso
+## Usage
 
-### Ejecutar el API
+### Run the API
 
-Para iniciar el servidor, navega al directorio de la API y ejecuta:
+To start the server, navigate to the API directory and run:
 ```bash
 cd api
 uvicorn main:app --reload
 ```
-El servidor se iniciará en `http://localhost:8000`.
+The server will start at `http://localhost:8000`.
 
-### Documentación del API
+### API Documentation
 
-Accede a la documentación interactiva en:
+Access interactive documentation at:
 - Swagger UI: `http://localhost:8000/docs`
 - ReDoc: `http://localhost:8000/redoc`
 
-### Ejemplo de Uso
+### Usage Example
 
-Realiza una petición al API utilizando Python:
+Make a request to the API using Python:
 
 ```python
 import requests
 
 url = "http://localhost:8000/crawl"
 data = {
-    "url": "https://ejemplo.com",
+    "url": "https://example.com",
     "max_depth": 2
 }
 
@@ -80,26 +82,26 @@ response = requests.post(url, json=data)
 print(response.json())
 ```
 
-También puedes usar `curl`:
+You can also use `curl`:
 ```bash
 curl -X POST "http://localhost:8000/crawl" \
      -H "Content-Type: application/json" \
-     -d '{"url":"https://ejemplo.com","max_depth":2}'
+     -d '{"url":"https://example.com","max_depth":2}'
 ```
 
-### Usar el Crawler Directamente
+### Using the Crawler Directly
 
-Puedes utilizar el crawler directamente en tu código:
+You can use the crawler directly in your code:
 
 ```python
 from webcrawler import crawl
 
-content = crawl("https://ejemplo.com", max_depth=2)
+content = crawl("https://example.com", max_depth=2)
 print(content)
 ```
 
-## Configuración
+## Configuration
 
-El API puede configurarse mediante variables de entorno:
-- `PORT`: Puerto del servidor (por defecto: 8000).
-- `HOST`: Host del servidor (por defecto: 0.0.0.0).
+The API can be configured using environment variables:
+- `PORT`: Server port (default: 8000).
+- `HOST`: Server host (default: 0.0.0.0).
