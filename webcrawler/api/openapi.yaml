@@ -1,0 +1,68 @@
+openapi: 3.0.0
+info:
+  title: Web Crawler API
+  description: API para procesar y extraer contenido de páginas web
+  version: "1.0.0"
+servers:
+  - url: http://193.144.50.203:8000
+paths:
+  /crawl:
+    post:
+      summary: Procesar una URL
+      description: Recibe una URL y su profundidad máxima para procesarla y devolver el contenido en formato markdown
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrawlRequest'
+      responses:
+        '200':
+          description: Respuesta exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CrawlResponse'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    CrawlRequest:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          example: "https://www.ejemplo.com"
+        max_depth:
+          type: integer
+          example: 1
+      required:
+        - url
+    CrawlResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "success"
+        url:
+          type: string
+          format: uri
+          example: "https://www.ejemplo.com"
+        max_depth:
+          type: integer
+          example: 1
+        content:
+          type: string
+          example: "Contenido de la página en formato markdown."
+    ErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: string
+          example: "Error procesando la URL: descripción del error."
+
