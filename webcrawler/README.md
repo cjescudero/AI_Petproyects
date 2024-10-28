@@ -96,7 +96,7 @@ You can use the crawler directly in your code:
 ```python
 from webcrawler import crawl
 
-content = crawl("https://example.com", max_depth=2)
+content = crawl("https://example.com", max_depth=1)
 print(content)
 ```
 
