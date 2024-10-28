@@ -4,7 +4,7 @@ info:
   description: API to process and extract content from web pages
   version: "1.0.0"
 servers:
-  - url: http://ipserver:8000
+  - url: http://server_domain_ip:8000
 paths:
   /crawl:
     post:
