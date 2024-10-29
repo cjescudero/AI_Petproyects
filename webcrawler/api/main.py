@@ -10,7 +10,7 @@ from webcrawler.webcrawler import crawl
 
 app = FastAPI(
     title="Web Crawler API",
-    description="API para procesar y extraer contenido de páginas web",
+    description="API for processing and extracting content from web pages",
     version="1.0.0",
 )
 
@@ -22,8 +22,8 @@ class CrawlRequest(BaseModel):
 
 @app.post(
     "/crawl",
-    summary="Procesar una URL",
-    description="Recibe una URL y su profundidad máxima para procesarla y devolver el contenido en formato markdown",
+    summary="Process a URL",
+    description="Receives a URL and its maximum depth to process it and return the content in markdown format",
 )
 async def crawl_endpoint(request: CrawlRequest):
     try:
@@ -35,9 +35,7 @@ async def crawl_endpoint(request: CrawlRequest):
             "content": content,
         }
     except Exception as e:
-        raise HTTPException(
-            status_code=500, detail=f"Error procesando la URL: {str(e)}"
-        )
+        raise HTTPException(status_code=500, detail=f"Error processing URL: {str(e)}")
 
 
 if __name__ == "__main__":
